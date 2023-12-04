@@ -1,0 +1,31 @@
+<!-- views/user.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Panel</title>
+</head>
+
+<body>
+    <h1>User Panel - View Your Details</h1>
+    <!-- Display user details here from the server -->
+    <!-- Example data, replace with actual user data -->
+    <p>User ID: 1</p>
+    <p>Username: user1</p>
+    <!-- Add other user details as needed -->
+</body>
+<script>
+    var settings = {
+        "url": `http://localhost:4450/user/${clicked_id}`,
+        "method": "DELETE",
+        "timeout": 0,
+    };
+
+    $.ajax(settings).done(function (response) {
+        location.reload();
+    });
+</script>
+
+</html>

@@ -1,0 +1,88 @@
+<!-- views/admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        #table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #table td,
+        #table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #table tr:hover {
+            background-color: #ddd;
+        }
+
+        #table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Admin Panel - Edit User Details</h1>
+    <table border="1" id="table">
+
+    </table>
+</body>
+
+<script>
+    var settings = {
+        "url": "http://localhost:4450/userdetails",
+        "method": "GET",
+        "timeout": 0,
+    };
+
+    $.ajax(settings).done(function (response) {
+        let table = `<tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>type</th>
+            <th>Delete</th>
+        </tr>`;
+        response.forEach(element => {
+            table += `<tr>`;
+            table += `<td>${element.id}</td>`;
+            table += `<td>${element.username}</td>`;
+            table += `<td>${element.type}</td>`;
+            table += `<td><button id="${element.id} "onClick="Delete(this.id)">Delete</button></td>`;
+            table += `</tr>`;
+        });
+
+        document.getElementById('table').innerHTML = table;
+    });
+
+    function Delete(clicked_id) {
+        var settings = {
+            "url": `http://localhost:4450/user/${clicked_id}`,
+            "method": "DELETE",
+            "timeout": 0,
+        };
+
+        $.ajax(settings).done(function (response) {
+            location.reload();
+        });
+    }
+
+</script>
+
+</html>
